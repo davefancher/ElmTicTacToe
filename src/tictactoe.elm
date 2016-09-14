@@ -27,7 +27,8 @@ type alias Cell =
 type alias Board = List Cell
 
 type MoveResult =
-    NewMove Player
+    InvalidMove Player
+    | NextMove Player
     | Win Player
     | Draw
 
@@ -44,20 +45,36 @@ horizontalPositions = [ Left, Center, Right ]
 verticalPositions : List YPos
 verticalPositions = [ Top, Middle, Bottom ]
 
-allPositions : List (YPos, XPos)
+allPositions : List CellPosition
 allPositions =
     horizontalPositions
     |> List.map (\h -> List.map (\v -> (v, h)) verticalPositions)
     |> List.concat
 
 init : (Model, Cmd Msg)
-init = (Model (allPositions |> List.map (\p -> Cell p Empty)) (NewMove PlayerX), Cmd.none)
+init = (Model (allPositions |> List.map (\p -> Cell p Empty)) (NextMove PlayerX), Cmd.none)
 
 -- Update
 
 type Msg =
-    Move Player Cell
+    Move Player CellPosition
     | Reset
+
+linesToCheck : List (List CellPosition)
+linesToCheck =
+    let
+        makeRow r = horizontalPositions |> List.map (\c -> (r, c))
+        rows = verticalPositions |> List.map makeRow
+
+        makeCol c = verticalPositions |> List.map (\r -> (r, c))
+        cols = horizontalPositions |> List.map makeCol
+
+        diag1 = [ (Top, Left), (Middle, Center), (Bottom, Right) ]
+        diag2 = [ (Top, Right), (Middle, Center), (Bottom, Left) ]
+
+        lines = List.concat [ rows, cols, [ diag1 ], [ diag2 ] ]
+    in
+        lines
 
 getCell : Board -> CellPosition -> Cell
 getCell board (row, col) =
@@ -71,28 +88,6 @@ getCell board (row, col) =
             Just c -> c
             Nothing -> { position = (row, col), state = Empty }
 
-getLinesToCheck : Board -> List (List Cell)
-getLinesToCheck board =
-    let
-        findCell = getCell board
-
-        makeRow : YPos -> List Cell
-        makeRow r = horizontalPositions |> List.map (\c -> findCell (r, c))
-        rows = verticalPositions |> List.map makeRow
-
-        makeCol : XPos -> List Cell
-        makeCol c = verticalPositions |> List.map (\r -> findCell (r, c))
-        cols = horizontalPositions |> List.map makeCol
-
-        diag1 : List Cell
-        diag1 = [ findCell (Top, Left), findCell (Middle, Center), findCell (Bottom, Right) ]
-        diag2 = [ findCell (Top, Right), findCell (Middle, Center), findCell (Bottom, Left) ]
-
-        lines : List (List Cell)
-        lines = List.concat [ rows, cols, [ diag1 ], [ diag2 ] ]
-    in
-        lines
-
 cellIsOccupied : Board -> CellPosition -> Bool
 cellIsOccupied board position =
     case (getCell board position).state of
@@ -101,9 +96,8 @@ cellIsOccupied board position =
 
 checkForWin : Player -> Board -> Bool
 checkForWin player board =
-    board
-    |> getLinesToCheck
-    |> List.map (List.all (\c -> case c.state of
+    linesToCheck
+    |> List.map (List.all (\p -> case (p |> getCell board).state of
                                         Empty -> False
                                         Occupied p -> p == player))
     |> List.any (\l -> l)
@@ -114,30 +108,41 @@ checkForDraw board =
     && not (checkForWin PlayerX board)
     && not (checkForWin PlayerO board)
 
-updateBoard : Board -> Cell -> Board
-updateBoard board newCell =
+replaceCell : Board -> Cell -> Board
+replaceCell board newCell =
     board
     |> List.map (\oldCell -> if oldCell.position == newCell.position then newCell else oldCell)
+
+getUnoccupiedCells : Board -> List CellPosition
+getUnoccupiedCells board =
+    board
+    |> List.filter (\c -> c.state == Empty)
+    |> List.map (\c -> c.position)
+
+isValidMove : Board -> CellPosition -> Bool
+isValidMove board position =
+    (getCell board position).state == Empty
+
+getMoveResult : Player -> Board -> MoveResult
+getMoveResult player board =
+    if checkForWin player board then
+        Win player
+    else if checkForDraw board then
+        Draw
+    else
+        case player of
+            PlayerX -> NextMove PlayerO 
+            PlayerO -> NextMove PlayerX
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        Move p c ->
-            let
-                -- TODO: Handle occupied space (don't replace)
-                newBoard = updateBoard model.board { c | state = Occupied p }
-                result =
-                    if checkForWin p newBoard then
-                        Win p
-                    else if checkForDraw newBoard then
-                        Draw
-                    else
-                        case p of
-                            PlayerX -> NewMove PlayerO
-                            PlayerO -> NewMove PlayerX
-                newModel = { board = newBoard, lastMoveResult = result }
-            in
-                (newModel, Cmd.none)
+        Move player position ->
+            if not (isValidMove model.board position) then
+                ({ model | lastMoveResult = InvalidMove player }, Cmd.none)
+            else
+                replaceCell model.board { position = position, state = Occupied player }
+                |> (\b -> ({ board = b, lastMoveResult = getMoveResult player b }, Cmd.none))
         Reset ->
             init
 
@@ -169,9 +174,9 @@ buildRows model =
                                             
                                         Empty -> 
                                             case model.lastMoveResult of
-                                                NewMove nextPlayer ->
+                                                NextMove nextPlayer ->
                                                     button
-                                                        [ onClick (Move nextPlayer cell) ]
+                                                        [ onClick (Move nextPlayer cell.position) ]
                                                         [ cell |> getCellText |> text ]
                                                 _ ->
                                                     button [] [ cell |> getCellText |> text ] ])
@@ -189,8 +194,9 @@ view model =
       (buildRows model)
       , button [ onClick Reset ] [ text "Reset" ]
       , (case model.lastMoveResult of
-            NewMove PlayerX -> "Player X's Turn"
-            NewMove PlayerO -> "Player O's Turn"
+            InvalidMove _ -> "Invalid Move"
+            NextMove PlayerX -> "Player X's Turn"
+            NextMove PlayerO -> "Player O's Turn"
             Win PlayerX -> "Player X Wins!"
             Win PlayerO -> "Player O Wins!"
             Draw -> "It's a draw!") |> text
