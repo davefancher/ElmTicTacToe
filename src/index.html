@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <link href="styles/bootstrap.min.css" rel="stylesheet" />
+        <style type="text/css">
+            .container {
+                margin-top: 20px;
+            }
+
+            .tic-tac-toe-board .col-md-4 {
+                padding: 10px;
+                text-align: center;
+            }
+
+            .tic-tac-toe-board .btn {
+                width: 75px;
+                height: 75px;
+                display: inline;
+            }
+
+            h2 { margin-top: -5px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-md-offset-4 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Tic Tac Toe</h4>
+                    </div>
+                    <div class="panel-body" id="ticTacToe">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script language="javascript" type="text/javascript" src="scripts/tictactoe.js">
+        </script>
+        <script language="javascript" type="text/javascript">
+            var target = document.getElementById("ticTacToe");
+            var app = Elm.Main.embed(target);
+        </script>
+    </body>
+</html>

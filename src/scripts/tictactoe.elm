@@ -160,47 +160,73 @@ getCellText cell =
         Occupied player -> getPlayerName player
         Empty -> "-"
 
-buildRows : Model -> List (Html Msg)
-buildRows model =
-    let
-        buildCells : List XPos -> YPos -> List (Html Msg)
-        buildCells cols row =
-            cols
-            |> List.map (\col -> getCell model.board (row, col))
-            |> List.map (\cell -> td []
-                                  [ case cell.state of
-                                        Occupied p ->
-                                            getPlayerName p |> text
-                                            
-                                        Empty -> 
-                                            case model.lastMoveResult of
-                                                NextMove nextPlayer ->
-                                                    button
-                                                        [ onClick (Move nextPlayer cell.position) ]
-                                                        [ cell |> getCellText |> text ]
-                                                _ ->
-                                                    button [] [ cell |> getCellText |> text ] ])
-    in
-        verticalPositions
-        |> List.map (\r -> tr [] (buildCells horizontalPositions r))
+buttonStyle : String
+buttonStyle = "btn btn-lg btn-block btn-primary"
+
+buildHeader : Model -> Html Msg
+buildHeader model =
+    div
+        [ class "row" ]
+        [ div
+            [ class "col-md-12 text-center" ]
+            [ (case model.lastMoveResult of
+                    InvalidMove _ -> "Invalid Move! Try again."
+                    NextMove PlayerX -> "X's Turn"
+                    NextMove PlayerO -> "O's Turn"
+                    Win PlayerX -> "X Wins!"
+                    Win PlayerO -> "O Wins!"
+                    Draw -> "It's a Draw. Try again.") |> (\t -> h2 [] [ text t ]) ] ]
+
+buildCell : Model -> Cell -> Html Msg
+buildCell model cell =
+    div
+        [ class "col-md-4" ]
+        [ (case cell.state of
+            Occupied _ ->
+                button
+                    [ class buttonStyle, disabled True ]
+                    [ cell |> getCellText |> text ]
+            Empty ->
+                case model.lastMoveResult of
+                    NextMove nextPlayer ->
+                        button
+                            [ class buttonStyle, onClick (Move nextPlayer cell.position) ]
+                            [ cell |> getCellText |> text ]
+                    _ ->
+                        button
+                            [ class buttonStyle, disabled True ]
+                            [ cell |> getCellText |> text ] )
+        ]
+
+buildRow : Model -> YPos -> Html Msg
+buildRow model ypos =
+    div [ class "row" ]
+    (horizontalPositions
+     |> List.map (\hpos -> getCell model.board (ypos, hpos))
+     |> List.map (buildCell model))
+
+buildFooter : Model -> Html Msg
+buildFooter model =
+    div
+        [ class "row" ]
+        [ div
+            [ class "col-md-12" ]
+            [ button [ class "btn btn-lg btn-block btn-default", onClick Reset ]
+                     [ i [ class "glyphicon glyphicon-refresh" ] []
+                     , text " Reset" ] ] ]
+
+buildBoard : Model -> List (Html Msg)
+buildBoard model =
+    List.concat
+        [ [ buildHeader model ]
+        , [ div [ class "tic-tac-toe-board" ] (verticalPositions |> List.map (buildRow model)) ]
+        , [ hr [] [] ]
+        , [ buildFooter model ] ]
 
 view : Model -> Html Msg
 view model =
-    div
-    [ style [] ]
-    [ table
-      [ style [ ("border", "1px solid black")
-              , ("border-collapse", "collapse" ) ] ]
-      (buildRows model)
-      , button [ onClick Reset ] [ text "Reset" ]
-      , (case model.lastMoveResult of
-            InvalidMove _ -> "Invalid Move"
-            NextMove PlayerX -> "Player X's Turn"
-            NextMove PlayerO -> "Player O's Turn"
-            Win PlayerX -> "Player X Wins!"
-            Win PlayerO -> "Player O Wins!"
-            Draw -> "It's a draw!") |> text
-    ]
+    div []
+    (buildBoard model)
 
 -- Subscriptions
 
