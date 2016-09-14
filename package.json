@@ -1,0 +1,10 @@
+{
+    "name": "elm-tic-tac-toe",
+    "version": "1.0.0",
+    "description": "Tic-Tac-Toe With Elm",
+    "main": "gulpfile.js",
+    "devDependencies": {
+        "gulp": "3.9.1",
+        "gulp-elm": "0.5.0"
+    }
+}
