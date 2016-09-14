@@ -108,6 +108,12 @@ checkForWin player board =
                                         Occupied p -> p == player))
     |> List.any (\l -> l)
 
+checkForDraw : Board -> Bool
+checkForDraw board =
+    (List.all (\c -> not (c.state == Empty)) board)
+    && not (checkForWin PlayerX board)
+    && not (checkForWin PlayerO board)
+
 updateBoard : Board -> Cell -> Board
 updateBoard board newCell =
     board
@@ -123,6 +129,8 @@ update msg model =
                 result =
                     if checkForWin p newBoard then
                         Win p
+                    else if checkForDraw newBoard then
+                        Draw
                     else
                         case p of
                             PlayerX -> NewMove PlayerO
@@ -185,7 +193,7 @@ view model =
             NewMove PlayerO -> "Player O's Turn"
             Win PlayerX -> "Player X Wins!"
             Win PlayerO -> "Player O Wins!"
-            Draw -> "It's a tie!") |> text
+            Draw -> "It's a draw!") |> text
     ]
 
 -- Subscriptions
