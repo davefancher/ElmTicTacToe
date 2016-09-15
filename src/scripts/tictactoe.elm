@@ -163,7 +163,7 @@ getCellText cell =
         Empty -> ""
 
 buttonStyle : String
-buttonStyle = "btn btn-lg btn-block btn-primary"
+buttonStyle = "btn btn-lg btn-block"
 
 buildHeader : Model -> Html Msg
 buildHeader model =
@@ -186,17 +186,17 @@ buildCell model cell =
         [ (case cell.state of
             Occupied _ ->
                 button
-                    [ class buttonStyle, disabled True ]
+                    [ class (buttonStyle ++ " btn-default"), disabled True ]
                     [ cell |> getCellText |> text ]
             Empty ->
                 case model.lastMoveResult of
                     NextMove nextPlayer ->
                         button
-                            [ class buttonStyle, onClick (Move nextPlayer cell.position) ]
+                            [ class (buttonStyle ++ " btn-primary"), onClick (Move nextPlayer cell.position) ]
                             [ cell |> getCellText |> text ]
                     _ ->
                         button
-                            [ class buttonStyle, disabled True ]
+                            [ class (buttonStyle ++ " btn-primary"), disabled True ]
                             [ cell |> getCellText |> text ] ) ]
 
 buildRow : Model -> YPos -> Html Msg

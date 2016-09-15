@@ -7951,7 +7951,7 @@ var _user$project$TicTacToe$buildHeader = function (model) {
 					]))
 			]));
 };
-var _user$project$TicTacToe$buttonStyle = 'btn btn-lg btn-block btn-primary';
+var _user$project$TicTacToe$buttonStyle = 'btn btn-lg btn-block';
 var _user$project$TicTacToe$getPlayerName = function (player) {
 	var _p1 = player;
 	if (_p1.ctor === 'PlayerX') {
@@ -8276,7 +8276,8 @@ var _user$project$TicTacToe$buildCell = F2(
 							_elm_lang$html$Html$button,
 							_elm_lang$core$Native_List.fromArray(
 								[
-									_elm_lang$html$Html_Attributes$class(_user$project$TicTacToe$buttonStyle),
+									_elm_lang$html$Html_Attributes$class(
+									A2(_elm_lang$core$Basics_ops['++'], _user$project$TicTacToe$buttonStyle, ' btn-default')),
 									_elm_lang$html$Html_Attributes$disabled(true)
 								]),
 							_elm_lang$core$Native_List.fromArray(
@@ -8291,7 +8292,8 @@ var _user$project$TicTacToe$buildCell = F2(
 								_elm_lang$html$Html$button,
 								_elm_lang$core$Native_List.fromArray(
 									[
-										_elm_lang$html$Html_Attributes$class(_user$project$TicTacToe$buttonStyle),
+										_elm_lang$html$Html_Attributes$class(
+										A2(_elm_lang$core$Basics_ops['++'], _user$project$TicTacToe$buttonStyle, ' btn-primary')),
 										_elm_lang$html$Html_Events$onClick(
 										A2(_user$project$TicTacToe$Move, _p15._0, cell.position))
 									]),
@@ -8305,7 +8307,8 @@ var _user$project$TicTacToe$buildCell = F2(
 								_elm_lang$html$Html$button,
 								_elm_lang$core$Native_List.fromArray(
 									[
-										_elm_lang$html$Html_Attributes$class(_user$project$TicTacToe$buttonStyle),
+										_elm_lang$html$Html_Attributes$class(
+										A2(_elm_lang$core$Basics_ops['++'], _user$project$TicTacToe$buttonStyle, ' btn-primary')),
 										_elm_lang$html$Html_Attributes$disabled(true)
 									]),
 								_elm_lang$core$Native_List.fromArray(
