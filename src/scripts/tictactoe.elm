@@ -160,7 +160,7 @@ getCellText : Cell -> String
 getCellText cell = 
     case cell.state of
         Occupied player -> getPlayerName player
-        Empty -> "-"
+        Empty -> ""
 
 buttonStyle : String
 buttonStyle = "btn btn-lg btn-block btn-primary"
