@@ -1,3 +1,5 @@
+module TicTacToe exposing (..)
+
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.App as App
@@ -195,8 +197,7 @@ buildCell model cell =
                     _ ->
                         button
                             [ class buttonStyle, disabled True ]
-                            [ cell |> getCellText |> text ] )
-        ]
+                            [ cell |> getCellText |> text ] ) ]
 
 buildRow : Model -> YPos -> Html Msg
 buildRow model ypos =

@@ -7897,10 +7897,10 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _user$project$Main$subscriptions = function (model) {
+var _user$project$TicTacToe$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Main$buildHeader = function (model) {
+var _user$project$TicTacToe$buildHeader = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -7951,8 +7951,8 @@ var _user$project$Main$buildHeader = function (model) {
 					]))
 			]));
 };
-var _user$project$Main$buttonStyle = 'btn btn-lg btn-block btn-primary';
-var _user$project$Main$getPlayerName = function (player) {
+var _user$project$TicTacToe$buttonStyle = 'btn btn-lg btn-block btn-primary';
+var _user$project$TicTacToe$getPlayerName = function (player) {
 	var _p1 = player;
 	if (_p1.ctor === 'PlayerX') {
 		return 'X';
@@ -7960,15 +7960,15 @@ var _user$project$Main$getPlayerName = function (player) {
 		return 'O';
 	}
 };
-var _user$project$Main$getCellText = function (cell) {
+var _user$project$TicTacToe$getCellText = function (cell) {
 	var _p2 = cell.state;
 	if (_p2.ctor === 'Occupied') {
-		return _user$project$Main$getPlayerName(_p2._0);
+		return _user$project$TicTacToe$getPlayerName(_p2._0);
 	} else {
-		return '-';
+		return '';
 	}
 };
-var _user$project$Main$replaceCell = F2(
+var _user$project$TicTacToe$replaceCell = F2(
 	function (board, newCell) {
 		return A2(
 			_elm_lang$core$List$map,
@@ -7977,27 +7977,27 @@ var _user$project$Main$replaceCell = F2(
 			},
 			board);
 	});
-var _user$project$Main$Cell = F2(
+var _user$project$TicTacToe$Cell = F2(
 	function (a, b) {
 		return {position: a, state: b};
 	});
-var _user$project$Main$Model = F2(
+var _user$project$TicTacToe$Model = F2(
 	function (a, b) {
 		return {board: a, lastMoveResult: b};
 	});
-var _user$project$Main$PlayerO = {ctor: 'PlayerO'};
-var _user$project$Main$PlayerX = {ctor: 'PlayerX'};
-var _user$project$Main$Right = {ctor: 'Right'};
-var _user$project$Main$Center = {ctor: 'Center'};
-var _user$project$Main$Left = {ctor: 'Left'};
-var _user$project$Main$horizontalPositions = _elm_lang$core$Native_List.fromArray(
-	[_user$project$Main$Left, _user$project$Main$Center, _user$project$Main$Right]);
-var _user$project$Main$Bottom = {ctor: 'Bottom'};
-var _user$project$Main$Middle = {ctor: 'Middle'};
-var _user$project$Main$Top = {ctor: 'Top'};
-var _user$project$Main$verticalPositions = _elm_lang$core$Native_List.fromArray(
-	[_user$project$Main$Top, _user$project$Main$Middle, _user$project$Main$Bottom]);
-var _user$project$Main$allPositions = _elm_lang$core$List$concat(
+var _user$project$TicTacToe$PlayerO = {ctor: 'PlayerO'};
+var _user$project$TicTacToe$PlayerX = {ctor: 'PlayerX'};
+var _user$project$TicTacToe$Right = {ctor: 'Right'};
+var _user$project$TicTacToe$Center = {ctor: 'Center'};
+var _user$project$TicTacToe$Left = {ctor: 'Left'};
+var _user$project$TicTacToe$horizontalPositions = _elm_lang$core$Native_List.fromArray(
+	[_user$project$TicTacToe$Left, _user$project$TicTacToe$Center, _user$project$TicTacToe$Right]);
+var _user$project$TicTacToe$Bottom = {ctor: 'Bottom'};
+var _user$project$TicTacToe$Middle = {ctor: 'Middle'};
+var _user$project$TicTacToe$Top = {ctor: 'Top'};
+var _user$project$TicTacToe$verticalPositions = _elm_lang$core$Native_List.fromArray(
+	[_user$project$TicTacToe$Top, _user$project$TicTacToe$Middle, _user$project$TicTacToe$Bottom]);
+var _user$project$TicTacToe$allPositions = _elm_lang$core$List$concat(
 	A2(
 		_elm_lang$core$List$map,
 		function (h) {
@@ -8006,21 +8006,21 @@ var _user$project$Main$allPositions = _elm_lang$core$List$concat(
 				function (v) {
 					return {ctor: '_Tuple2', _0: v, _1: h};
 				},
-				_user$project$Main$verticalPositions);
+				_user$project$TicTacToe$verticalPositions);
 		},
-		_user$project$Main$horizontalPositions));
-var _user$project$Main$linesToCheck = function () {
+		_user$project$TicTacToe$horizontalPositions));
+var _user$project$TicTacToe$linesToCheck = function () {
 	var diag2 = _elm_lang$core$Native_List.fromArray(
 		[
-			{ctor: '_Tuple2', _0: _user$project$Main$Top, _1: _user$project$Main$Right},
-			{ctor: '_Tuple2', _0: _user$project$Main$Middle, _1: _user$project$Main$Center},
-			{ctor: '_Tuple2', _0: _user$project$Main$Bottom, _1: _user$project$Main$Left}
+			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Top, _1: _user$project$TicTacToe$Right},
+			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Middle, _1: _user$project$TicTacToe$Center},
+			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Bottom, _1: _user$project$TicTacToe$Left}
 		]);
 	var diag1 = _elm_lang$core$Native_List.fromArray(
 		[
-			{ctor: '_Tuple2', _0: _user$project$Main$Top, _1: _user$project$Main$Left},
-			{ctor: '_Tuple2', _0: _user$project$Main$Middle, _1: _user$project$Main$Center},
-			{ctor: '_Tuple2', _0: _user$project$Main$Bottom, _1: _user$project$Main$Right}
+			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Top, _1: _user$project$TicTacToe$Left},
+			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Middle, _1: _user$project$TicTacToe$Center},
+			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Bottom, _1: _user$project$TicTacToe$Right}
 		]);
 	var makeCol = function (c) {
 		return A2(
@@ -8028,18 +8028,18 @@ var _user$project$Main$linesToCheck = function () {
 			function (r) {
 				return {ctor: '_Tuple2', _0: r, _1: c};
 			},
-			_user$project$Main$verticalPositions);
+			_user$project$TicTacToe$verticalPositions);
 	};
-	var cols = A2(_elm_lang$core$List$map, makeCol, _user$project$Main$horizontalPositions);
+	var cols = A2(_elm_lang$core$List$map, makeCol, _user$project$TicTacToe$horizontalPositions);
 	var makeRow = function (r) {
 		return A2(
 			_elm_lang$core$List$map,
 			function (c) {
 				return {ctor: '_Tuple2', _0: r, _1: c};
 			},
-			_user$project$Main$horizontalPositions);
+			_user$project$TicTacToe$horizontalPositions);
 	};
-	var rows = A2(_elm_lang$core$List$map, makeRow, _user$project$Main$verticalPositions);
+	var rows = A2(_elm_lang$core$List$map, makeRow, _user$project$TicTacToe$verticalPositions);
 	var lines = _elm_lang$core$List$concat(
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -8052,8 +8052,8 @@ var _user$project$Main$linesToCheck = function () {
 			]));
 	return lines;
 }();
-var _user$project$Main$Empty = {ctor: 'Empty'};
-var _user$project$Main$getCell = F2(
+var _user$project$TicTacToe$Empty = {ctor: 'Empty'};
+var _user$project$TicTacToe$getCell = F2(
 	function (board, _p3) {
 		var _p4 = _p3;
 		var _p7 = _p4._0;
@@ -8073,20 +8073,20 @@ var _user$project$Main$getCell = F2(
 		} else {
 			return {
 				position: {ctor: '_Tuple2', _0: _p7, _1: _p6},
-				state: _user$project$Main$Empty
+				state: _user$project$TicTacToe$Empty
 			};
 		}
 	});
-var _user$project$Main$cellIsOccupied = F2(
+var _user$project$TicTacToe$cellIsOccupied = F2(
 	function (board, position) {
-		var _p8 = A2(_user$project$Main$getCell, board, position).state;
+		var _p8 = A2(_user$project$TicTacToe$getCell, board, position).state;
 		if (_p8.ctor === 'Empty') {
 			return true;
 		} else {
 			return false;
 		}
 	});
-var _user$project$Main$checkForWin = F2(
+var _user$project$TicTacToe$checkForWin = F2(
 	function (player, board) {
 		return A2(
 			_elm_lang$core$List$any,
@@ -8097,27 +8097,27 @@ var _user$project$Main$checkForWin = F2(
 				_elm_lang$core$List$map,
 				_elm_lang$core$List$all(
 					function (p) {
-						var _p9 = A2(_user$project$Main$getCell, board, p).state;
+						var _p9 = A2(_user$project$TicTacToe$getCell, board, p).state;
 						if (_p9.ctor === 'Empty') {
 							return false;
 						} else {
 							return _elm_lang$core$Native_Utils.eq(_p9._0, player);
 						}
 					}),
-				_user$project$Main$linesToCheck));
+				_user$project$TicTacToe$linesToCheck));
 	});
-var _user$project$Main$checkForDraw = function (board) {
+var _user$project$TicTacToe$checkForDraw = function (board) {
 	return A2(
 		_elm_lang$core$List$all,
 		function (c) {
 			return _elm_lang$core$Basics$not(
-				_elm_lang$core$Native_Utils.eq(c.state, _user$project$Main$Empty));
+				_elm_lang$core$Native_Utils.eq(c.state, _user$project$TicTacToe$Empty));
 		},
 		board) && (_elm_lang$core$Basics$not(
-		A2(_user$project$Main$checkForWin, _user$project$Main$PlayerX, board)) && _elm_lang$core$Basics$not(
-		A2(_user$project$Main$checkForWin, _user$project$Main$PlayerO, board)));
+		A2(_user$project$TicTacToe$checkForWin, _user$project$TicTacToe$PlayerX, board)) && _elm_lang$core$Basics$not(
+		A2(_user$project$TicTacToe$checkForWin, _user$project$TicTacToe$PlayerO, board)));
 };
-var _user$project$Main$getUnoccupiedCells = function (board) {
+var _user$project$TicTacToe$getUnoccupiedCells = function (board) {
 	return A2(
 		_elm_lang$core$List$map,
 		function (c) {
@@ -8126,72 +8126,72 @@ var _user$project$Main$getUnoccupiedCells = function (board) {
 		A2(
 			_elm_lang$core$List$filter,
 			function (c) {
-				return _elm_lang$core$Native_Utils.eq(c.state, _user$project$Main$Empty);
+				return _elm_lang$core$Native_Utils.eq(c.state, _user$project$TicTacToe$Empty);
 			},
 			board));
 };
-var _user$project$Main$isValidMove = F2(
+var _user$project$TicTacToe$isValidMove = F2(
 	function (board, position) {
 		return _elm_lang$core$Native_Utils.eq(
-			A2(_user$project$Main$getCell, board, position).state,
-			_user$project$Main$Empty);
+			A2(_user$project$TicTacToe$getCell, board, position).state,
+			_user$project$TicTacToe$Empty);
 	});
-var _user$project$Main$Occupied = function (a) {
+var _user$project$TicTacToe$Occupied = function (a) {
 	return {ctor: 'Occupied', _0: a};
 };
-var _user$project$Main$Draw = {ctor: 'Draw'};
-var _user$project$Main$Win = function (a) {
+var _user$project$TicTacToe$Draw = {ctor: 'Draw'};
+var _user$project$TicTacToe$Win = function (a) {
 	return {ctor: 'Win', _0: a};
 };
-var _user$project$Main$NextMove = function (a) {
+var _user$project$TicTacToe$NextMove = function (a) {
 	return {ctor: 'NextMove', _0: a};
 };
-var _user$project$Main$init = {
+var _user$project$TicTacToe$init = {
 	ctor: '_Tuple2',
 	_0: A2(
-		_user$project$Main$Model,
+		_user$project$TicTacToe$Model,
 		A2(
 			_elm_lang$core$List$map,
 			function (p) {
-				return A2(_user$project$Main$Cell, p, _user$project$Main$Empty);
+				return A2(_user$project$TicTacToe$Cell, p, _user$project$TicTacToe$Empty);
 			},
-			_user$project$Main$allPositions),
-		_user$project$Main$NextMove(_user$project$Main$PlayerX)),
+			_user$project$TicTacToe$allPositions),
+		_user$project$TicTacToe$NextMove(_user$project$TicTacToe$PlayerX)),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
-var _user$project$Main$getMoveResult = F2(
+var _user$project$TicTacToe$getMoveResult = F2(
 	function (player, board) {
-		if (A2(_user$project$Main$checkForWin, player, board)) {
-			return _user$project$Main$Win(player);
+		if (A2(_user$project$TicTacToe$checkForWin, player, board)) {
+			return _user$project$TicTacToe$Win(player);
 		} else {
-			if (_user$project$Main$checkForDraw(board)) {
-				return _user$project$Main$Draw;
+			if (_user$project$TicTacToe$checkForDraw(board)) {
+				return _user$project$TicTacToe$Draw;
 			} else {
 				var _p10 = player;
 				if (_p10.ctor === 'PlayerX') {
-					return _user$project$Main$NextMove(_user$project$Main$PlayerO);
+					return _user$project$TicTacToe$NextMove(_user$project$TicTacToe$PlayerO);
 				} else {
-					return _user$project$Main$NextMove(_user$project$Main$PlayerX);
+					return _user$project$TicTacToe$NextMove(_user$project$TicTacToe$PlayerX);
 				}
 			}
 		}
 	});
-var _user$project$Main$InvalidMove = function (a) {
+var _user$project$TicTacToe$InvalidMove = function (a) {
 	return {ctor: 'InvalidMove', _0: a};
 };
-var _user$project$Main$update = F2(
+var _user$project$TicTacToe$update = F2(
 	function (msg, model) {
 		var _p11 = msg;
 		if (_p11.ctor === 'Move') {
 			var _p13 = _p11._1;
 			var _p12 = _p11._0;
 			return _elm_lang$core$Basics$not(
-				A2(_user$project$Main$isValidMove, model.board, _p13)) ? {
+				A2(_user$project$TicTacToe$isValidMove, model.board, _p13)) ? {
 				ctor: '_Tuple2',
 				_0: _elm_lang$core$Native_Utils.update(
 					model,
 					{
-						lastMoveResult: _user$project$Main$InvalidMove(_p12)
+						lastMoveResult: _user$project$TicTacToe$InvalidMove(_p12)
 					}),
 				_1: _elm_lang$core$Platform_Cmd$none
 			} : function (b) {
@@ -8199,24 +8199,24 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: {
 						board: b,
-						lastMoveResult: A2(_user$project$Main$getMoveResult, _p12, b)
+						lastMoveResult: A2(_user$project$TicTacToe$getMoveResult, _p12, b)
 					},
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			}(
 				A2(
-					_user$project$Main$replaceCell,
+					_user$project$TicTacToe$replaceCell,
 					model.board,
 					{
 						position: _p13,
-						state: _user$project$Main$Occupied(_p12)
+						state: _user$project$TicTacToe$Occupied(_p12)
 					}));
 		} else {
-			return _user$project$Main$init;
+			return _user$project$TicTacToe$init;
 		}
 	});
-var _user$project$Main$Reset = {ctor: 'Reset'};
-var _user$project$Main$buildFooter = function (model) {
+var _user$project$TicTacToe$Reset = {ctor: 'Reset'};
+var _user$project$TicTacToe$buildFooter = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -8238,7 +8238,7 @@ var _user$project$Main$buildFooter = function (model) {
 						_elm_lang$core$Native_List.fromArray(
 							[
 								_elm_lang$html$Html_Attributes$class('btn btn-lg btn-block btn-default'),
-								_elm_lang$html$Html_Events$onClick(_user$project$Main$Reset)
+								_elm_lang$html$Html_Events$onClick(_user$project$TicTacToe$Reset)
 							]),
 						_elm_lang$core$Native_List.fromArray(
 							[
@@ -8255,11 +8255,11 @@ var _user$project$Main$buildFooter = function (model) {
 					]))
 			]));
 };
-var _user$project$Main$Move = F2(
+var _user$project$TicTacToe$Move = F2(
 	function (a, b) {
 		return {ctor: 'Move', _0: a, _1: b};
 	});
-var _user$project$Main$buildCell = F2(
+var _user$project$TicTacToe$buildCell = F2(
 	function (model, cell) {
 		return A2(
 			_elm_lang$html$Html$div,
@@ -8276,13 +8276,13 @@ var _user$project$Main$buildCell = F2(
 							_elm_lang$html$Html$button,
 							_elm_lang$core$Native_List.fromArray(
 								[
-									_elm_lang$html$Html_Attributes$class(_user$project$Main$buttonStyle),
+									_elm_lang$html$Html_Attributes$class(_user$project$TicTacToe$buttonStyle),
 									_elm_lang$html$Html_Attributes$disabled(true)
 								]),
 							_elm_lang$core$Native_List.fromArray(
 								[
 									_elm_lang$html$Html$text(
-									_user$project$Main$getCellText(cell))
+									_user$project$TicTacToe$getCellText(cell))
 								]));
 					} else {
 						var _p15 = model.lastMoveResult;
@@ -8291,34 +8291,34 @@ var _user$project$Main$buildCell = F2(
 								_elm_lang$html$Html$button,
 								_elm_lang$core$Native_List.fromArray(
 									[
-										_elm_lang$html$Html_Attributes$class(_user$project$Main$buttonStyle),
+										_elm_lang$html$Html_Attributes$class(_user$project$TicTacToe$buttonStyle),
 										_elm_lang$html$Html_Events$onClick(
-										A2(_user$project$Main$Move, _p15._0, cell.position))
+										A2(_user$project$TicTacToe$Move, _p15._0, cell.position))
 									]),
 								_elm_lang$core$Native_List.fromArray(
 									[
 										_elm_lang$html$Html$text(
-										_user$project$Main$getCellText(cell))
+										_user$project$TicTacToe$getCellText(cell))
 									]));
 						} else {
 							return A2(
 								_elm_lang$html$Html$button,
 								_elm_lang$core$Native_List.fromArray(
 									[
-										_elm_lang$html$Html_Attributes$class(_user$project$Main$buttonStyle),
+										_elm_lang$html$Html_Attributes$class(_user$project$TicTacToe$buttonStyle),
 										_elm_lang$html$Html_Attributes$disabled(true)
 									]),
 								_elm_lang$core$Native_List.fromArray(
 									[
 										_elm_lang$html$Html$text(
-										_user$project$Main$getCellText(cell))
+										_user$project$TicTacToe$getCellText(cell))
 									]));
 						}
 					}
 				}()
 				]));
 	});
-var _user$project$Main$buildRow = F2(
+var _user$project$TicTacToe$buildRow = F2(
 	function (model, ypos) {
 		return A2(
 			_elm_lang$html$Html$div,
@@ -8328,24 +8328,24 @@ var _user$project$Main$buildRow = F2(
 				]),
 			A2(
 				_elm_lang$core$List$map,
-				_user$project$Main$buildCell(model),
+				_user$project$TicTacToe$buildCell(model),
 				A2(
 					_elm_lang$core$List$map,
 					function (hpos) {
 						return A2(
-							_user$project$Main$getCell,
+							_user$project$TicTacToe$getCell,
 							model.board,
 							{ctor: '_Tuple2', _0: ypos, _1: hpos});
 					},
-					_user$project$Main$horizontalPositions)));
+					_user$project$TicTacToe$horizontalPositions)));
 	});
-var _user$project$Main$buildBoard = function (model) {
+var _user$project$TicTacToe$buildBoard = function (model) {
 	return _elm_lang$core$List$concat(
 		_elm_lang$core$Native_List.fromArray(
 			[
 				_elm_lang$core$Native_List.fromArray(
 				[
-					_user$project$Main$buildHeader(model)
+					_user$project$TicTacToe$buildHeader(model)
 				]),
 				_elm_lang$core$Native_List.fromArray(
 				[
@@ -8357,8 +8357,8 @@ var _user$project$Main$buildBoard = function (model) {
 						]),
 					A2(
 						_elm_lang$core$List$map,
-						_user$project$Main$buildRow(model),
-						_user$project$Main$verticalPositions))
+						_user$project$TicTacToe$buildRow(model),
+						_user$project$TicTacToe$verticalPositions))
 				]),
 				_elm_lang$core$Native_List.fromArray(
 				[
@@ -8371,25 +8371,25 @@ var _user$project$Main$buildBoard = function (model) {
 				]),
 				_elm_lang$core$Native_List.fromArray(
 				[
-					_user$project$Main$buildFooter(model)
+					_user$project$TicTacToe$buildFooter(model)
 				])
 			]));
 };
-var _user$project$Main$view = function (model) {
+var _user$project$TicTacToe$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
-		_user$project$Main$buildBoard(model));
+		_user$project$TicTacToe$buildBoard(model));
 };
-var _user$project$Main$main = {
+var _user$project$TicTacToe$main = {
 	main: _elm_lang$html$Html_App$program(
-		{init: _user$project$Main$init, view: _user$project$Main$view, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions})
+		{init: _user$project$TicTacToe$init, view: _user$project$TicTacToe$view, update: _user$project$TicTacToe$update, subscriptions: _user$project$TicTacToe$subscriptions})
 };
 
 var Elm = {};
-Elm['Main'] = Elm['Main'] || {};
-_elm_lang$core$Native_Platform.addPublicModule(Elm['Main'], 'Main', typeof _user$project$Main$main === 'undefined' ? null : _user$project$Main$main);
+Elm['TicTacToe'] = Elm['TicTacToe'] || {};
+_elm_lang$core$Native_Platform.addPublicModule(Elm['TicTacToe'], 'TicTacToe', typeof _user$project$TicTacToe$main === 'undefined' ? null : _user$project$TicTacToe$main);
 
 if (typeof define === "function" && define['amd'])
 {
