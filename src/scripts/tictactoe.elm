@@ -182,7 +182,7 @@ buildHeader model =
 buildCell : Model -> Cell -> Html Msg
 buildCell model cell =
     div
-        [ class "col-sm-4" ]
+        [ class "col-sm-4 text-center" ]
         [ (case cell.state of
             Occupied _ ->
                 button

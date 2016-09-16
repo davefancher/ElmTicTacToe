@@ -8265,7 +8265,7 @@ var _user$project$TicTacToe$buildCell = F2(
 			_elm_lang$html$Html$div,
 			_elm_lang$core$Native_List.fromArray(
 				[
-					_elm_lang$html$Html_Attributes$class('col-sm-4')
+					_elm_lang$html$Html_Attributes$class('col-sm-4 text-center')
 				]),
 			_elm_lang$core$Native_List.fromArray(
 				[
