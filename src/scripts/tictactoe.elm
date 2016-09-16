@@ -170,7 +170,7 @@ buildHeader model =
     div
         [ class "row" ]
         [ div
-            [ class "col-md-12 text-center" ]
+            [ class "col-sm-12 text-center" ]
             [ (case model.lastMoveResult of
                     InvalidMove _ -> "Invalid Move! Try again."
                     NextMove PlayerX -> "X's Turn"
@@ -182,7 +182,7 @@ buildHeader model =
 buildCell : Model -> Cell -> Html Msg
 buildCell model cell =
     div
-        [ class "col-md-4" ]
+        [ class "col-sm-4" ]
         [ (case cell.state of
             Occupied _ ->
                 button
@@ -211,7 +211,7 @@ buildFooter model =
     div
         [ class "row" ]
         [ div
-            [ class "col-md-12" ]
+            [ class "col-sm-12" ]
             [ button [ class "btn btn-lg btn-block btn-default", onClick Reset ]
                      [ i [ class "glyphicon glyphicon-refresh" ] []
                      , text " Reset" ] ] ]
