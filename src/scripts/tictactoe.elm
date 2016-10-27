@@ -5,15 +5,30 @@ import Html.Attributes exposing (..)
 import Html.App as App
 import Html.Events exposing (onInput, onClick)
 
+main : Program Never
 main =
-    App.program { init = init, view = view, update = update, subscriptions = subscriptions }
+    App.program {
+        init = init,
+        view = view,
+        update = update,
+        subscriptions = subscriptions
+    }
 
 -- Model
 
-type Player = PlayerX | PlayerO
+type Player =
+    PlayerX
+    | PlayerO
 
-type XPos = Left | Center | Right
-type YPos = Top | Middle | Bottom
+type XPos =
+    Left
+    | Center
+    | Right
+
+type YPos =
+    Top
+    | Middle
+    | Bottom
 
 type alias CellPosition = (YPos, XPos)
 
@@ -66,17 +81,14 @@ linesToCheck : List (List CellPosition)
 linesToCheck =
     let
         makeRow r = horizontalPositions |> List.map (\c -> (r, c))
-        rows = verticalPositions |> List.map makeRow
-
         makeCol c = verticalPositions |> List.map (\r -> (r, c))
-        cols = horizontalPositions |> List.map makeCol
-
-        diag1 = [ (Top, Left), (Middle, Center), (Bottom, Right) ]
-        diag2 = [ (Top, Right), (Middle, Center), (Bottom, Left) ]
-
-        lines = List.concat [ rows, cols, [ diag1 ], [ diag2 ] ]
     in
-        lines
+        List.concat [
+            ( verticalPositions |> List.map makeRow ),              -- columns
+            ( horizontalPositions |> List.map makeCol ),            -- rows
+            [[ (Top, Left), (Middle, Center), (Bottom, Right) ]],   -- diagonal 1
+            [[ (Top, Right), (Middle, Center), (Bottom, Left) ]]    -- diagonal 2
+        ]
 
 getCell : Board -> CellPosition -> Cell
 getCell board (row, col) =
@@ -113,7 +125,9 @@ checkForDraw board =
 replaceCell : Board -> Cell -> Board
 replaceCell board newCell =
     board
-    |> List.map (\oldCell -> if oldCell.position == newCell.position then newCell else oldCell)
+    |> List.map (\oldCell -> if oldCell.position == newCell.position
+                             then newCell
+                             else oldCell)
 
 getUnoccupiedCells : Board -> List CellPosition
 getUnoccupiedCells board =
@@ -143,7 +157,8 @@ update msg model =
             if not (isValidMove model.board position) then
                 ({ model | lastMoveResult = InvalidMove player }, Cmd.none)
             else
-                replaceCell model.board { position = position, state = Occupied player }
+                { position = position, state = Occupied player }
+                |> replaceCell model.board
                 |> (\b -> ({ board = b, lastMoveResult = getMoveResult player b }, Cmd.none))
         Reset ->
             init
@@ -177,7 +192,8 @@ buildHeader model =
                     NextMove PlayerO -> "O's Turn"
                     Win PlayerX -> "X Wins!"
                     Win PlayerO -> "O Wins!"
-                    Draw -> "It's a Draw. Try again.") |> (\t -> h2 [] [ text t ]) ] ]
+                    Draw -> "It's a Draw. Try again.")
+              |> (\t -> h2 [] [ text t ]) ] ]
 
 buildCell : Model -> Cell -> Html Msg
 buildCell model cell =
@@ -192,7 +208,8 @@ buildCell model cell =
                 case model.lastMoveResult of
                     NextMove nextPlayer ->
                         button
-                            [ class (buttonStyle ++ " btn-primary"), onClick (Move nextPlayer cell.position) ]
+                            [ class (buttonStyle ++ " btn-primary"),
+                                onClick (Move nextPlayer cell.position) ]
                             [ cell |> getCellText |> text ]
                     _ ->
                         button

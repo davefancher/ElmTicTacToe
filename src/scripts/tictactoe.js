@@ -8010,18 +8010,6 @@ var _user$project$TicTacToe$allPositions = _elm_lang$core$List$concat(
 		},
 		_user$project$TicTacToe$horizontalPositions));
 var _user$project$TicTacToe$linesToCheck = function () {
-	var diag2 = _elm_lang$core$Native_List.fromArray(
-		[
-			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Top, _1: _user$project$TicTacToe$Right},
-			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Middle, _1: _user$project$TicTacToe$Center},
-			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Bottom, _1: _user$project$TicTacToe$Left}
-		]);
-	var diag1 = _elm_lang$core$Native_List.fromArray(
-		[
-			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Top, _1: _user$project$TicTacToe$Left},
-			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Middle, _1: _user$project$TicTacToe$Center},
-			{ctor: '_Tuple2', _0: _user$project$TicTacToe$Bottom, _1: _user$project$TicTacToe$Right}
-		]);
 	var makeCol = function (c) {
 		return A2(
 			_elm_lang$core$List$map,
@@ -8030,7 +8018,6 @@ var _user$project$TicTacToe$linesToCheck = function () {
 			},
 			_user$project$TicTacToe$verticalPositions);
 	};
-	var cols = A2(_elm_lang$core$List$map, makeCol, _user$project$TicTacToe$horizontalPositions);
 	var makeRow = function (r) {
 		return A2(
 			_elm_lang$core$List$map,
@@ -8039,18 +8026,30 @@ var _user$project$TicTacToe$linesToCheck = function () {
 			},
 			_user$project$TicTacToe$horizontalPositions);
 	};
-	var rows = A2(_elm_lang$core$List$map, makeRow, _user$project$TicTacToe$verticalPositions);
-	var lines = _elm_lang$core$List$concat(
+	return _elm_lang$core$List$concat(
 		_elm_lang$core$Native_List.fromArray(
 			[
-				rows,
-				cols,
+				A2(_elm_lang$core$List$map, makeRow, _user$project$TicTacToe$verticalPositions),
+				A2(_elm_lang$core$List$map, makeCol, _user$project$TicTacToe$horizontalPositions),
 				_elm_lang$core$Native_List.fromArray(
-				[diag1]),
+				[
+					_elm_lang$core$Native_List.fromArray(
+					[
+						{ctor: '_Tuple2', _0: _user$project$TicTacToe$Top, _1: _user$project$TicTacToe$Left},
+						{ctor: '_Tuple2', _0: _user$project$TicTacToe$Middle, _1: _user$project$TicTacToe$Center},
+						{ctor: '_Tuple2', _0: _user$project$TicTacToe$Bottom, _1: _user$project$TicTacToe$Right}
+					])
+				]),
 				_elm_lang$core$Native_List.fromArray(
-				[diag2])
+				[
+					_elm_lang$core$Native_List.fromArray(
+					[
+						{ctor: '_Tuple2', _0: _user$project$TicTacToe$Top, _1: _user$project$TicTacToe$Right},
+						{ctor: '_Tuple2', _0: _user$project$TicTacToe$Middle, _1: _user$project$TicTacToe$Center},
+						{ctor: '_Tuple2', _0: _user$project$TicTacToe$Bottom, _1: _user$project$TicTacToe$Left}
+					])
+				])
 			]));
-	return lines;
 }();
 var _user$project$TicTacToe$Empty = {ctor: 'Empty'};
 var _user$project$TicTacToe$getCell = F2(
