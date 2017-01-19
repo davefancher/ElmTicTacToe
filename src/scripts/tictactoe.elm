@@ -102,12 +102,6 @@ getCell board (row, col) =
             Just c -> c
             Nothing -> { position = (row, col), state = Empty }
 
-cellIsOccupied : Board -> CellPosition -> Bool
-cellIsOccupied board position =
-    case (getCell board position).state of
-        Empty -> True
-        _ -> False
-
 checkForWin : Player -> Board -> Bool
 checkForWin player board =
     linesToCheck

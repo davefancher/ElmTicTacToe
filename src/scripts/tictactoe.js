@@ -8076,15 +8076,6 @@ var _user$project$TicTacToe$getCell = F2(
 			};
 		}
 	});
-var _user$project$TicTacToe$cellIsOccupied = F2(
-	function (board, position) {
-		var _p8 = A2(_user$project$TicTacToe$getCell, board, position).state;
-		if (_p8.ctor === 'Empty') {
-			return true;
-		} else {
-			return false;
-		}
-	});
 var _user$project$TicTacToe$checkForWin = F2(
 	function (player, board) {
 		return A2(
@@ -8096,11 +8087,11 @@ var _user$project$TicTacToe$checkForWin = F2(
 				_elm_lang$core$List$map,
 				_elm_lang$core$List$all(
 					function (p) {
-						var _p9 = A2(_user$project$TicTacToe$getCell, board, p).state;
-						if (_p9.ctor === 'Empty') {
+						var _p8 = A2(_user$project$TicTacToe$getCell, board, p).state;
+						if (_p8.ctor === 'Empty') {
 							return false;
 						} else {
-							return _elm_lang$core$Native_Utils.eq(_p9._0, player);
+							return _elm_lang$core$Native_Utils.eq(_p8._0, player);
 						}
 					}),
 				_user$project$TicTacToe$linesToCheck));
@@ -8166,8 +8157,8 @@ var _user$project$TicTacToe$getMoveResult = F2(
 			if (_user$project$TicTacToe$checkForDraw(board)) {
 				return _user$project$TicTacToe$Draw;
 			} else {
-				var _p10 = player;
-				if (_p10.ctor === 'PlayerX') {
+				var _p9 = player;
+				if (_p9.ctor === 'PlayerX') {
 					return _user$project$TicTacToe$NextMove(_user$project$TicTacToe$PlayerO);
 				} else {
 					return _user$project$TicTacToe$NextMove(_user$project$TicTacToe$PlayerX);
@@ -8180,17 +8171,17 @@ var _user$project$TicTacToe$InvalidMove = function (a) {
 };
 var _user$project$TicTacToe$update = F2(
 	function (msg, model) {
-		var _p11 = msg;
-		if (_p11.ctor === 'Move') {
-			var _p13 = _p11._1;
-			var _p12 = _p11._0;
+		var _p10 = msg;
+		if (_p10.ctor === 'Move') {
+			var _p12 = _p10._1;
+			var _p11 = _p10._0;
 			return _elm_lang$core$Basics$not(
-				A2(_user$project$TicTacToe$isValidMove, model.board, _p13)) ? {
+				A2(_user$project$TicTacToe$isValidMove, model.board, _p12)) ? {
 				ctor: '_Tuple2',
 				_0: _elm_lang$core$Native_Utils.update(
 					model,
 					{
-						lastMoveResult: _user$project$TicTacToe$InvalidMove(_p12)
+						lastMoveResult: _user$project$TicTacToe$InvalidMove(_p11)
 					}),
 				_1: _elm_lang$core$Platform_Cmd$none
 			} : function (b) {
@@ -8198,7 +8189,7 @@ var _user$project$TicTacToe$update = F2(
 					ctor: '_Tuple2',
 					_0: {
 						board: b,
-						lastMoveResult: A2(_user$project$TicTacToe$getMoveResult, _p12, b)
+						lastMoveResult: A2(_user$project$TicTacToe$getMoveResult, _p11, b)
 					},
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -8207,8 +8198,8 @@ var _user$project$TicTacToe$update = F2(
 					_user$project$TicTacToe$replaceCell,
 					model.board,
 					{
-						position: _p13,
-						state: _user$project$TicTacToe$Occupied(_p12)
+						position: _p12,
+						state: _user$project$TicTacToe$Occupied(_p11)
 					}));
 		} else {
 			return _user$project$TicTacToe$init;
@@ -8269,8 +8260,8 @@ var _user$project$TicTacToe$buildCell = F2(
 			_elm_lang$core$Native_List.fromArray(
 				[
 					function () {
-					var _p14 = cell.state;
-					if (_p14.ctor === 'Occupied') {
+					var _p13 = cell.state;
+					if (_p13.ctor === 'Occupied') {
 						return A2(
 							_elm_lang$html$Html$button,
 							_elm_lang$core$Native_List.fromArray(
@@ -8285,8 +8276,8 @@ var _user$project$TicTacToe$buildCell = F2(
 									_user$project$TicTacToe$getCellText(cell))
 								]));
 					} else {
-						var _p15 = model.lastMoveResult;
-						if (_p15.ctor === 'NextMove') {
+						var _p14 = model.lastMoveResult;
+						if (_p14.ctor === 'NextMove') {
 							return A2(
 								_elm_lang$html$Html$button,
 								_elm_lang$core$Native_List.fromArray(
@@ -8294,7 +8285,7 @@ var _user$project$TicTacToe$buildCell = F2(
 										_elm_lang$html$Html_Attributes$class(
 										A2(_elm_lang$core$Basics_ops['++'], _user$project$TicTacToe$buttonStyle, ' btn-primary')),
 										_elm_lang$html$Html_Events$onClick(
-										A2(_user$project$TicTacToe$Move, _p15._0, cell.position))
+										A2(_user$project$TicTacToe$Move, _p14._0, cell.position))
 									]),
 								_elm_lang$core$Native_List.fromArray(
 									[
